@@ -1,55 +1,59 @@
 import './App.css';
 import { addTodo, removeTodo, doneTodo, undoneTodo } from './stores/todo';
 import React from 'react';
-import { useSelector, useDispatch, Provider } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './stores/index';
 import './index.css';
-import { Toggle, handleClick } from './toggle';
 
 function App() {
-  const [input, setInput] = React.useState("");
-  const [todo, setTodo] = React.useState('');
-  const [todos, setTodos] = React.useState([]);
+  const [todoInput, setTodoInput] = React.useState('');
+
+  const todos = useSelector(state => state.todos.todos);
   const dispatch = useDispatch();
 
   const handleAddTodo = (e) => {
     e.preventDefault();
-    dispatch(addTodo(input));
+    dispatch(addTodo({ text: todoInput }));
+    setTodoInput('');
   };
+
+  const handleRemoveTodo = (e, id) => {
+    e.preventDefault();
+    dispatch(removeTodo({ id }))
+  };
+
+  const handleToggle = (id) => {
+    const todo = todos.find(todo => todo.id === id);
+    todo.done ? dispatch(undoneTodo({ id })) : dispatch(doneTodo({ id }));
+  }
 
   return (
     <div className="App">
       <form className="App-form" onSubmit={handleAddTodo}>
         <input
-          class='input'
+          className='input'
+          value={todoInput}
           type="text"
           placeholder="Введите текст"
-          onInput={(e) => { setTodo(e.target.value) }}
+          onInput={(e) => { setTodoInput(e.target.value) }}
         />
-
-        <button
-          class='button green'
-          type="submit"
-          onClick={() => dispatch(addTodo())}
-        >
+        <button className='button green'>
           Добавить в список задач
         </button>
       </form>
 
       <ul>
-        {todos.map((todo, index) => (
+        {todos.map(({ text, id, done }) => (
           <li
-            key={index}
-            onClick={this.handleClick}
+            className={`${done ? 'done' : ''}`}
+            key={id}
           >
-            {todo}, {this.state.isToggleOn ? doneTodo : undoneTodo}
-            <button
-              class='button red'
-              onClick={() => dispatch(removeTodo())}
-              type='button'
-            >
-              Убрать
-            </button>
+            <form onSubmit={(e) => handleRemoveTodo(e, id)}>
+              <span onClick={() => handleToggle(id)}>{text}</span>
+              <button className='button __remove red'>
+                Убрать
+              </button>
+            </form>
           </li>
         ))}
       </ul>

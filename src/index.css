@@ -21,7 +21,7 @@ code {
   text-decoration: none;
 }
 
-.input{
+.input {
   border-radius: 8px;
   border: 1px solid rgb(0, 0, 0);
   width: 30vw;
@@ -47,7 +47,15 @@ code {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
+.button.__remove {
+  color: black;
+}
+
 .green {
   background-color: rgb(43, 153, 91);
   border: 1px solid rgb(33, 126, 74);
+}
+
+.done {
+  text-decoration: line-through;
 }

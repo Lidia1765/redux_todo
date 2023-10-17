@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { id } from '../utils.js'
 
 const initialState = { count: 0, todos: [] }
 
@@ -9,11 +8,11 @@ export const todoSlice = createSlice({
     reducers: {
         addTodo: (state, action) => {
             state.count = state.count + 1;
-            state.todos = [{ text: action.payload.text, id: id(), done: false }, ...state.todos]
+            state.todos = [{ text: action.payload.text, id: crypto.randomUUID(), done: false }, ...state.todos];
         },
         removeTodo: (state, action) => {
             state.count = state.count - 1;
-            state.todos = state.todos.filter((todo) => todo.id !== action.payload.text)
+            state.todos = state.todos.filter((todo) => todo.id !== action.payload.id);
         },
         doneTodo: (state, action) => {
             state.todos = state.todos.map((todo) => {
