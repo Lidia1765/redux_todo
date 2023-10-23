@@ -12,16 +12,16 @@ code {
     monospace;
 }
 
-.done_todo {
+.done{
   text-decoration: line-through;
   text-decoration-color: black;
 }
 
-.undone_todo {
+.undone{
   text-decoration: none;
 }
 
-.input {
+.input{
   border-radius: 8px;
   border: 1px solid rgb(0, 0, 0);
   width: 30vw;
@@ -36,26 +36,38 @@ code {
 
 .button {
   border-radius: 8px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
   color: #fff;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
-  padding: 10px 20px;
-  margin: 20px auto;
   text-decoration: none;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-
-.button.__remove {
-  color: black;
+  cursor: pointer;
 }
 
 .green {
   background-color: rgb(43, 153, 91);
   border: 1px solid rgb(33, 126, 74);
+  padding: 10px 20px;
+  margin: 20px auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-.done {
-  text-decoration: line-through;
+.red{
+  background-image: url(../cross.jpg);
+  background-color: white;
+  background-position: bottom;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-repeat: no-repeat;
+  margin-left: 50px;
+  text-align: center;
 }
+
+li{
+  list-style: none;
+}
+
+
+

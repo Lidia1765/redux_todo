@@ -42,16 +42,15 @@ function App() {
         </button>
       </form>
 
-      <ul>
+      <ul className='ul'>
         {todos.map(({ text, id, done }) => (
           <li
             className={`${done ? 'done' : ''}`}
             key={id}
           >
-            <form onSubmit={(e) => handleRemoveTodo(e, id)}>
+            <form className='form' onSubmit={(e) => handleRemoveTodo(e, id)}>
               <span onClick={() => handleToggle(id)}>{text}</span>
               <button className='button __remove red'>
-                Убрать
               </button>
             </form>
           </li>
