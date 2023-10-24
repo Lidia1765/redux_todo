@@ -1,6 +1,8 @@
+import type { State } from './types';
+
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { count: 0, todos: [] }
+const initialState: State = { count: 0, todos: [] }
 
 export const todoSlice = createSlice({
     name: "todos",

@@ -1,6 +1,9 @@
+import type { RootState } from './stores'
+import type { Todo } from './stores/types'
+
 import './App.css';
 import { addTodo, removeTodo, doneTodo, undoneTodo } from './stores/todo';
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './stores/index';
 import './index.css';
@@ -8,23 +11,25 @@ import './index.css';
 function App() {
   const [todoInput, setTodoInput] = React.useState('');
 
-  const todos = useSelector(state => state.todos.todos);
+  const todos = useSelector<RootState, Todo[]>(state => state.todos.todos);
   const dispatch = useDispatch();
 
-  const handleAddTodo = (e) => {
+  const handleAddTodo = (e: FormEvent) => {
     e.preventDefault();
     dispatch(addTodo({ text: todoInput }));
     setTodoInput('');
   };
 
-  const handleRemoveTodo = (e, id) => {
+  const handleRemoveTodo = (e: FormEvent, id: string) => {
     e.preventDefault();
     dispatch(removeTodo({ id }))
   };
 
-  const handleToggle = (id) => {
+  const handleToggle = (id: string) => {
     const todo = todos.find(todo => todo.id === id);
-    todo.done ? dispatch(undoneTodo({ id })) : dispatch(doneTodo({ id }));
+    if (todo) {
+      todo.done ? dispatch(undoneTodo({ id })) : dispatch(doneTodo({ id }));
+    }
   }
 
   return (
@@ -35,7 +40,7 @@ function App() {
           value={todoInput}
           type="text"
           placeholder="Введите текст"
-          onInput={(e) => { setTodoInput(e.target.value) }}
+          onInput={(e) => { setTodoInput((e.target as HTMLInputElement).value) }}
         />
         <button className='button green'>
           Добавить в список задач
@@ -59,6 +64,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
